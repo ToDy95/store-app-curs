@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useDeferredValue  } from 'react'
 
 export const globalProvider = createContext()
 const Context = ({ children }) => {
@@ -6,6 +6,7 @@ const Context = ({ children }) => {
   const [singleData, setSingleData] = useState(null)
   const [searchData, setSearchData] = useState([])
   const [input, setInput] = useState('')
+  const deferredQuery = useDeferredValue(input)
   const [dataSearch, setDataSearch] = useState('')
   const [url, setUrl] = useState('https://dummyjson.com/products')
   const [searchUrl, setSearchUrl] = useState('https://dummyjson.com/products/search?q=')
@@ -38,8 +39,10 @@ const Context = ({ children }) => {
   //  Get product from search
 
   useEffect(() => {
+    console.log(dataSearch)
     getSearchData(searchUrl + dataSearch)
   }, [dataSearch])
+  
 
   //  Get all products
   useEffect(() => {
@@ -49,10 +52,11 @@ const Context = ({ children }) => {
   return (
     <globalProvider.Provider value={{
       currentData: [data, setData],
-      inputSearch: [input, setInput],
+      inputSearch: [deferredQuery, setInput],
       searchedData: [dataSearch, setDataSearch],
       oneProduct: [singleProduct, setSingleProduct],
-      oneProductData: [singleData, setSingleData]
+      oneProductData: [singleData, setSingleData],
+      dataFromSearch: [searchData, setSearchData]
     }}>
       {children}
     </globalProvider.Provider>
