@@ -4,7 +4,7 @@ export const globalProvider = createContext()
 const Context = ({ children }) => {
   const [data, setData] = useState([])
   const [singleData, setSingleData] = useState(null)
-  const [searchData, setSearchData] = useState(null)
+  const [searchData, setSearchData] = useState([])
   const [input, setInput] = useState('')
   const [dataSearch, setDataSearch] = useState('')
   const [url, setUrl] = useState('https://dummyjson.com/products')
@@ -27,7 +27,7 @@ const Context = ({ children }) => {
   const getSearchData = async (url) => {
     const response = await fetch(url)
     const result = await response.json()
-    setSearchData([result.products])
+    setSearchData(result.products)
   }
 
   // Get product by id
@@ -39,13 +39,13 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     getSearchData(searchUrl + dataSearch)
-  }, [searchUrl])
+  }, [dataSearch])
 
   //  Get all products
   useEffect(() => {
     getData(url)
   }, [url])
-console.log(searchData)
+
   return (
     <globalProvider.Provider value={{
       currentData: [data, setData],
