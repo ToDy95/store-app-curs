@@ -51,7 +51,7 @@ const Profile = () => {
 	return (
 		<div>
 			<div>
-				<form action="" onSubmit={handlerFormSubmit}>
+				<form action="" onSubmit={handlerFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12, justifyContent: 'center', alignItems: 'center' }}>
 					<img src={avatar} alt={userName} width={200} height={200} />
 					<label htmlFor="username">User name</label>
 					<input

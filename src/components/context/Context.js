@@ -3,6 +3,7 @@ import React, {
 	useState,
 	useEffect,
 	useDeferredValue,
+	useSyncExternalStore
 } from "react";
 
 export const globalProvider = createContext();
@@ -34,7 +35,7 @@ const Context = ({ children }) => {
 		const result = await response.json();
 		setSingleData([result]);
 	};
-	console.log(user);
+
 	const getSearchData = async (url) => {
 		const response = await fetch(url);
 		const result = await response.json();
@@ -59,6 +60,24 @@ const Context = ({ children }) => {
 		localStorage.setItem("token_store_app", user.token);
 	}, [user, localStorage]);
 
+
+	//logalStorage
+	const token = useSyncExternalStore(subscribe, getSnapshot, () => undefined);
+
+	function subscribe(callback) {
+		window.addEventListener("store", callback);
+		return () => {
+			window.removeEventListener("store", callback);
+		};
+	}
+
+	//Return the current value from the browser API
+	function getSnapshot() {
+		//alert("localStorage changed")
+		return localStorage.getItem("token_store_app");
+	}
+	//logalStorage
+
 	return (
 		<globalProvider.Provider
 			value={{
@@ -69,6 +88,7 @@ const Context = ({ children }) => {
 				oneProductData: [singleData, setSingleData],
 				dataFromSearch: [searchData, setSearchData],
 				appUser: [user, setUser],
+				tokenAuth: token
 			}}
 		>
 			{children}

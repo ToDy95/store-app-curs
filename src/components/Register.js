@@ -25,14 +25,14 @@ const Register = () => {
 			requestOptions
 		);
 		const res = await response.json();
-    navigate('/login')
-		
+		navigate('/login')
+
 	};
 
 	return (
 		<div>
 			<div>
-				<form action="" onSubmit={handlerFormSubmit}>
+				<form action="" onSubmit={handlerFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12, justifyContent: 'center', alignItems: 'center' }}>
 					<label htmlFor="username">User name</label>
 					<input type="text" name="username" />
 					<label htmlFor="firstname">First name</label>
