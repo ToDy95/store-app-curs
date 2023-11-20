@@ -6,8 +6,7 @@ import { useEffect, useContext } from 'react';
 import { globalProvider } from './context/Context';
 const Home = () => {
   const navigate = useNavigate();
-  const { appUser, tokenAuth } = useContext(globalProvider);
-  const [, setUser] = appUser
+  const { tokenAuth } = useContext(globalProvider);
   const token = tokenAuth
   useEffect(() => {
 
