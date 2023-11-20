@@ -36,9 +36,9 @@ const Login = () => {
 
       <div>
         <form action="" onSubmit={handlerFormSubmit}>
-          <label for="username">User name</label>
+          <label htmlFor="username">User name</label>
           <input type="text" name='username' />
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input type="password" name='password' />
           <button>Login</button>
         </form>

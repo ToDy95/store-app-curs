@@ -7,10 +7,10 @@ import { useEffect } from 'react';
 const Home = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token_store_app');
-  useEffect(() => {
-    if (token === 'undefined')
-      navigate('/login')
-  }, [token])
+  // useEffect(() => {
+  //   if (token === 'undefined')
+  //     navigate('/login')
+  // }, [token])
 
   return (
     <div>
