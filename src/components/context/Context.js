@@ -1,8 +1,9 @@
-import React, { createContext, useState, useEffect, useDeferredValue  } from 'react'
+import React, { createContext, useState, useEffect, useDeferredValue } from 'react'
 
 export const globalProvider = createContext()
 const Context = ({ children }) => {
   const [data, setData] = useState([])
+  const [user, setUser] = useState({})
   const [singleData, setSingleData] = useState(null)
   const [searchData, setSearchData] = useState([])
   const [input, setInput] = useState('')
@@ -39,15 +40,17 @@ const Context = ({ children }) => {
   //  Get product from search
 
   useEffect(() => {
-    console.log(dataSearch)
     getSearchData(searchUrl + dataSearch)
   }, [dataSearch])
-  
+
 
   //  Get all products
   useEffect(() => {
     getData(url)
   }, [url])
+  useEffect(() => {
+    localStorage.setItem("token_store_app", user.token);
+  }, [user, localStorage])
 
   return (
     <globalProvider.Provider value={{
@@ -56,7 +59,8 @@ const Context = ({ children }) => {
       searchedData: [dataSearch, setDataSearch],
       oneProduct: [singleProduct, setSingleProduct],
       oneProductData: [singleData, setSingleData],
-      dataFromSearch: [searchData, setSearchData]
+      dataFromSearch: [searchData, setSearchData],
+      appUser: [user, setUser]
     }}>
       {children}
     </globalProvider.Provider>
