@@ -14,12 +14,9 @@ const NavBar = () => {
   const [user] = appUser
   const navigate = useNavigate()
 
-
   const handlerKeyPress = (event) => {
-    // if (event.key === 'Enter') {
     setInput(event.target.value)
     setDataSearch(input)
-    // }
   }
   const handlerClick = () => navigate("/search")
   const autocompleteHandler = (id) => {
@@ -28,10 +25,14 @@ const NavBar = () => {
   }
   return (
     <div className={styles.NavBar}>
+      <div onClick={() => {
+        navigate('/');
+        navigate(0)
+      }}>LOGO</div>
       {data.map((product, index) => {
         if (index % 5 === 0) {
           return (
-            <div key={index}>
+            <div key={index} onClick={() => navigate(`/category/${product.category.toLowerCase()}`)}>
               {product.category.toUpperCase()}
             </div>
           )

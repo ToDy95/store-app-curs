@@ -7,8 +7,9 @@ import React, {
 } from "react";
 
 export const globalProvider = createContext();
+
 const Context = ({ children }) => {
-	const [a, setA] = useState("abc");
+
 	const [data, setData] = useState([]);
 	const [user, setUser] = useState({});
 	const [singleData, setSingleData] = useState(null);
@@ -91,7 +92,8 @@ const Context = ({ children }) => {
 		//alert("localStorage changed")
 		return localStorage.getItem("token_store_app");
 	}
-	//logalStorage
+
+
 
 	return (
 		<globalProvider.Provider
@@ -105,7 +107,7 @@ const Context = ({ children }) => {
 				appUser: [user, setUser],
 				tokenAuth: token,
 				categoryData: [categoryUrl, setCategoryUrl],
-				b: [a, setA],
+
 				productCategory: [categoryProduct, setCategoryProduct],
 				cName: [categoryName, setCategoryName],
 			}}

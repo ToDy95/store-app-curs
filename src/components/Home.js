@@ -4,7 +4,9 @@ import Layout from './Layout';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { globalProvider } from './context/Context';
+import { useParams, useSearchParams } from 'react-router-dom'
 const Home = () => {
+  console.log(useSearchParams())
   const navigate = useNavigate();
   const { tokenAuth } = useContext(globalProvider);
   const token = tokenAuth
@@ -12,7 +14,7 @@ const Home = () => {
 
     if (token === 'undefined')
       navigate('/login')
-  }, [token])
+  }, [token, useParams()])
 
   return (
     <div>

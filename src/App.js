@@ -11,6 +11,7 @@ import Category from "./components/Category";
 function App() {
 	return (
 		<Routes>
+
 			<Route path="/" element={<Home />} />
 			<Route path="/product/:id" element={<Product />} />
 			<Route path="/search" element={<Search />} />
