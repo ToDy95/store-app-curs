@@ -62,7 +62,7 @@ const Context = ({ children }) => {
 
 
 	//logalStorage
-	const token = useSyncExternalStore(subscribe, getSnapshot, () => undefined);
+	const token = useSyncExternalStore(subscribe, getSnapshot);
 
 	function subscribe(callback) {
 		window.addEventListener("store", callback);

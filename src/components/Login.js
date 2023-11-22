@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import React from 'react'
 import { globalProvider } from "./context/Context"
 import { Link, useNavigate } from 'react-router-dom'
-
+import { toast } from 'react-toastify'
 const Login = () => {
   const { appUser, tokenAuth } = useContext(globalProvider);
   const [, setUser] = appUser
@@ -33,6 +33,7 @@ const Login = () => {
     const response = await fetch('https://dummyjson.com/auth/login', requestOptions)
     const res = await response.json();
     setUser(res)
+    toast.success("Logged successfully!")
     localStorage.setItem('token_store_app', JSON.stringify(res.token))
 
   }

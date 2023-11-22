@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { globalProvider } from "./context/Context";
-
+import { toast } from 'react-toastify'
 const Profile = () => {
 	const { appUser } = useContext(globalProvider);
 	const [user, setUser] = appUser;
@@ -13,6 +13,7 @@ const Profile = () => {
 	const getSingleData = async () => {
 		const response = await fetch(`https://dummyjson.com/users/${user.id}`);
 		const result = await response.json();
+		toast.info("User updated!!!")
 		console.log(result);
 		return result;
 	};
