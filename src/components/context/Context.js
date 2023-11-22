@@ -3,11 +3,12 @@ import React, {
 	useState,
 	useEffect,
 	useDeferredValue,
-	useSyncExternalStore
+	useSyncExternalStore,
 } from "react";
 
 export const globalProvider = createContext();
 const Context = ({ children }) => {
+	const [a, setA] = useState("abc");
 	const [data, setData] = useState([]);
 	const [user, setUser] = useState({});
 	const [singleData, setSingleData] = useState(null);
@@ -19,10 +20,15 @@ const Context = ({ children }) => {
 	const [searchUrl, setSearchUrl] = useState(
 		"https://dummyjson.com/products/search?q="
 	);
+	const [categoryProduct, setCategoryProduct] = useState([]);
 	const [singleProductUrl, setSingleProductUrl] = useState(
 		"https://dummyjson.com/products/"
 	);
 	const [singleProduct, setSingleProduct] = useState("");
+	const [categoryUrl, setCategoryUrl] = useState(
+		"https://dummyjson.com/products/category/"
+	);
+	const [categoryName, setCategoryName] = useState("");
 
 	const getData = async (url) => {
 		const response = await fetch(url);
@@ -42,6 +48,16 @@ const Context = ({ children }) => {
 		setSearchData(result.products);
 	};
 
+	const getCategoryData = async (url) => {
+		const response = await fetch(url);
+		const result = await response.json();
+		setCategoryProduct(result.products);
+		console.log(result)
+	};
+	useEffect(() => {
+		if (categoryName) getCategoryData(categoryUrl + categoryName);
+	}, [categoryName]);
+
 	// Get product by id
 	useEffect(() => {
 		if (singleProduct) getSingleData(singleProductUrl + singleProduct);
@@ -59,7 +75,6 @@ const Context = ({ children }) => {
 	useEffect(() => {
 		localStorage.setItem("token_store_app", user.token);
 	}, [user, localStorage]);
-
 
 	//logalStorage
 	const token = useSyncExternalStore(subscribe, getSnapshot);
@@ -88,7 +103,11 @@ const Context = ({ children }) => {
 				oneProductData: [singleData, setSingleData],
 				dataFromSearch: [searchData, setSearchData],
 				appUser: [user, setUser],
-				tokenAuth: token
+				tokenAuth: token,
+				categoryData: [categoryUrl, setCategoryUrl],
+				b: [a, setA],
+				productCategory: [categoryProduct, setCategoryProduct],
+				cName: [categoryName, setCategoryName],
 			}}
 		>
 			{children}
